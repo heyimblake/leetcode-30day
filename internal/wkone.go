@@ -4,7 +4,8 @@ import (
 	"math"
 )
 
-// Single Number: Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+// Single Number:
+// Given a non-empty array of integers, every element appears twice except for one. Find that single one.
 // Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
 func singleNumber(nums []int) int {
 	// Handle null case
@@ -44,12 +45,13 @@ func singleNumber(nums []int) int {
 }
 
 /*
+Happy Number:
 A happy number is a number defined by the following process:
 Starting with any positive integer, replace the number by the sum of the squares of its digits,
 and repeat the process until the number equals 1 (where it will stay),
 or it loops endlessly in a cycle which does not include 1.
 Those numbers for which this process ends in 1 are happy numbers.
- */
+*/
 func isHappy(n int) bool {
 	// Zero and negative numbers are not happy.
 	if n < 1 {
@@ -58,15 +60,15 @@ func isHappy(n int) bool {
 
 	// The only unhappy cycle in base-10 is 4 → 16 → 37 → 58 → 89 → 145 → 42 → 20
 	switch n {
-		case 4:
-		case 16:
-		case 37:
-		case 58:
-		case 89:
-		case 145:
-		case 42:
-		case 20:
-			return false
+	case 4:
+	case 16:
+	case 37:
+	case 58:
+	case 89:
+	case 145:
+	case 42:
+	case 20:
+		return false
 	}
 
 	// Any power of 10 (10, 100, 1000, etc) is a happy number.
@@ -77,7 +79,7 @@ func isHappy(n int) bool {
 	// Calculate new number to check.
 	toCheck := 0
 	for n > 0 {
-		toCheck += int(math.Pow(float64(n % 10), 2))
+		toCheck += int(math.Pow(float64(n%10), 2))
 		n /= 10
 	}
 
@@ -105,4 +107,48 @@ func isPower(x, y int) bool {
 	logf := logyf / logxf
 
 	return float64(logi) == logf
+}
+
+// Maximum Subarray:
+// Find the contiguous subarray (containing at least one number) which has the largest sum and return its sum
+func maxSubArray(nums []int) int {
+	// Null case
+	if nums == nil {
+		panic("Provided array cannot be nil.")
+	}
+
+	// Empty case
+	if len(nums) == 0 {
+		return 0
+	}
+
+	// 1 element case
+	if len(nums) == 1 {
+		return nums[0]
+	}
+
+	currentMax := nums[0]
+	maxHere := nums[0]
+
+	for i, v := range nums {
+		if i == 0 {
+			continue
+		}
+
+		// Calculate continuous sum
+		sum := maxHere + v
+
+		if v < sum {
+			maxHere = sum
+		} else {
+			maxHere = v
+		}
+
+		// Update max if we current continuous sum is higher
+		if maxHere > currentMax {
+			currentMax = maxHere
+		}
+	}
+
+	return currentMax
 }
