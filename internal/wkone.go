@@ -152,3 +152,43 @@ func maxSubArray(nums []int) int {
 
 	return currentMax
 }
+// Move Zeroes:
+// Move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+// 1) You must do this in-place without making a copy of the array.
+// 2) Minimize the total number of operations.
+func moveZeroes(nums []int) {
+	// Null case
+	if nums == nil {
+		panic("Provided array cannot be nil.")
+	}
+
+	// Empty/1 Case
+	if len(nums) <= 1 {
+		return
+	}
+
+	indexElementMap := make(map[int]int)
+	zeroCount := 0
+
+	// Calculate new indexes and put into map
+	for _, num := range nums {
+		if num != 0 {
+			indexElementMap[len(indexElementMap)] = num
+		} else {
+			zeroCount++
+		}
+	}
+
+	// Set new values with their new indexes
+	for i := 0; i < len(indexElementMap); i++ {
+		nums[i] = indexElementMap[i]
+	}
+
+	i := len(nums) - zeroCount
+
+	// Add zeroes to end
+	for i < len(nums) {
+		nums[i] = 0
+		i++
+	}
+}

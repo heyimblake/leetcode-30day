@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -51,6 +52,19 @@ func TestMaxSubArray(t *testing.T) {
 		actual := maxSubArray(input)
 		if actual != expected[i] {
 			fmt.Printf("Expected %d but got %d.\n", expected[i], actual)
+			t.Fail()
+		}
+	}
+}
+
+func TestMoveZeroes(t *testing.T) {
+	inputs := [][]int{{0, 1, 0, 3, 12}, {0, 0}, {1, 3, 12}, {0, 0, 0, 1, 3, 12, 0}}
+	expected := [][]int{{1, 3, 12, 0, 0}, {0, 0}, {1, 3, 12}, {1, 3, 12, 0, 0, 0, 0}}
+
+	for i, input := range inputs {
+		moveZeroes(input)
+		if !reflect.DeepEqual(input, expected[i]) {
+			fmt.Printf("Expected %d but got %d.\n", expected[i], input)
 			t.Fail()
 		}
 	}
