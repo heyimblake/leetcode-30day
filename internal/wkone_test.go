@@ -69,3 +69,16 @@ func TestMoveZeroes(t *testing.T) {
 		}
 	}
 }
+
+func TestMaxProfit(t *testing.T) {
+	inputs := [][]int{{5, 2, 10}, {7, 1, 5, 3, 6, 4}, {1, 2, 3, 4, 5}, {7, 6, 4, 3, 1}, {5, 9, 3, 3, 6, 1}, {9, 2, 1, 5, 7}, {1, 7, 2, 3, 6, 7, 6, 7}, {1, 2, 3}, {8, 6, 4, 3, 3, 2, 3, 5, 8, 3, 8, 2, 6}}
+	expected := []int{8, 7, 4, 0, 7, 6, 12, 2, 15}
+
+	for i, input := range inputs {
+		actual := maxProfit(input)
+		if actual != expected[i] {
+			fmt.Printf("Expected %d but got %d.\n", expected[i], actual)
+			t.Fail()
+		}
+	}
+}

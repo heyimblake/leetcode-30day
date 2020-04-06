@@ -2,6 +2,7 @@ package internal
 
 import (
 	"math"
+	"sort"
 )
 
 // Single Number:
@@ -152,6 +153,7 @@ func maxSubArray(nums []int) int {
 
 	return currentMax
 }
+
 // Move Zeroes:
 // Move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 // 1) You must do this in-place without making a copy of the array.
@@ -179,6 +181,11 @@ func moveZeroes(nums []int) {
 		}
 	}
 
+	// No zeroes means no modifications needed!
+	if zeroCount == 0 {
+		return
+	}
+
 	// Set new values with their new indexes
 	for i := 0; i < len(indexElementMap); i++ {
 		nums[i] = indexElementMap[i]
@@ -191,4 +198,69 @@ func moveZeroes(nums []int) {
 		nums[i] = 0
 		i++
 	}
+}
+
+// Best Time to Buy and Sell Stock II:
+// The ith element is the price of a given stock on day i
+// Find the maximum profit
+// You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times)
+// You may not engage in multiple transactions at the same time (i.e., you must sell the stock before you buy again)
+func maxProfit(prices []int) int {
+	// Null Case
+	if prices == nil {
+		panic("Provided array cannot be nil.")
+	}
+
+	// Handle Empty/1 Case
+	if len(prices) < 2 {
+		return 0
+	}
+
+	// If the array is sorted (max value first), then max profit is 0
+	if sort.SliceIsSorted(prices, func(x, y int) bool { return prices[x] >= prices[y] }) {
+		return 0
+	}
+
+	// If the array is sorted (min value first), then max profit is buying on day 0 and selling on day n-1
+	if sort.SliceIsSorted(prices, func(x, y int) bool { return prices[x] <= prices[y] }) {
+		return prices[len(prices)-1] - prices[0]
+	}
+
+	canBuy := true
+	boughtPrice := 0
+	maxProfit := 0
+
+	for i := 0; i < len(prices); i++ {
+		pricei := prices[i]
+
+		// Sell if we can
+		if !canBuy {
+			// Don't sell if we lose or don't make any money
+			if pricei <= boughtPrice {
+				continue
+			}
+
+			// Don't sell if we can get a better deal next time
+			if i+1 < len(prices) && prices[i+1] > pricei {
+				continue
+			}
+
+			canBuy = true
+			maxProfit += pricei - boughtPrice
+		}
+
+		// See if we should buy (dont buy on last check)
+		if canBuy && i < len(prices)-1 {
+			// If next price is lower (or same) than current, don't buy
+			if prices[i+1] <= pricei {
+				continue
+			}
+
+			// If we reached here, we should buy
+			canBuy = false
+			boughtPrice = pricei
+		}
+	}
+
+	return maxProfit
 }
