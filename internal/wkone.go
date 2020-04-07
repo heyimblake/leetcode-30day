@@ -264,3 +264,80 @@ func maxProfit(prices []int) int {
 
 	return maxProfit
 }
+
+// Group Anagrams:
+// Given an array of strings, group anagrams together.
+// All inputs will be in lowercase.
+// The order of your output does not matter.
+func groupAnagrams(strs []string) [][]string {
+	// Create map (Key: Sorted string. Value: array of associated strings)
+	sortedStringsMap := make(map[string][]string)
+
+	// Add to map
+	for _, str := range strs {
+		chars := []rune(str)
+		sort.SliceStable(chars, func(i, j int) bool { return chars[i] < chars[j] })
+		s := string(chars)
+		sortedStringsMap[s] = append(sortedStringsMap[s], str)
+	}
+
+	// Convert map to double array
+	arr := make([][]string, len(sortedStringsMap))
+	i := 0
+
+	for _, vals := range sortedStringsMap {
+		for _, s := range vals {
+			arr[i] = append(arr[i], s)
+		}
+		i++
+	}
+
+	return arr
+}
+
+// Counting Elements:
+// Given an integer array arr, count element x such that x + 1 is also in arr.
+// If there're duplicates in arr, count them seperately.
+// Constraints:
+// 1 <= arr.length <= 1000
+// 0 <= arr[i] <= 1000
+func countElements(arr []int) int {
+	// Null Case
+	if arr == nil {
+		panic("Provided array cannot be nil.")
+	}
+
+	// Inputs of length 0/1 cannot have a matching element.
+	if len(arr) < 2 {
+		return 0
+	}
+
+	count := 0
+
+	// Create map. (Key: element. Value: frequency)
+	freqMap := make(map[int]int)
+
+	// Sort Array
+	sort.SliceStable(arr, func(i, j int) bool { return arr[i] < arr[j] })
+
+	// Put elements and their frequencies into the map
+	for _, element := range arr {
+		freqMap[element] = freqMap[element] + 1
+	}
+
+	// Find matching pairs
+	for element, freq := range freqMap {
+		for freq > 0 {
+			pairAmount := freqMap[element+1]
+
+			if pairAmount > 0 {
+				count++
+				freq--
+			} else {
+				break
+			}
+		}
+	}
+
+	return count
+}

@@ -82,3 +82,29 @@ func TestMaxProfit(t *testing.T) {
 		}
 	}
 }
+
+func TestGroupAnagrams(t *testing.T) {
+	inputs := [][]string{{"eat", "tea", "tan", "ate", "nat", "bat"}}
+	expected := [][][]string{{{"eat", "tea", "ate"}, {"tan", "nat"}, {"bat"}}}
+
+	for i, input := range inputs {
+		actual := groupAnagrams(input)
+		if !reflect.DeepEqual(actual, expected[i]) {
+			fmt.Printf("Expected %s but got %s.\n", expected[i], actual)
+			t.Fail()
+		}
+	}
+}
+
+func TestCountElements(t *testing.T) {
+	inputs := [][]int{{1, 2, 3}, {1, 1, 3, 3, 5, 5, 7, 7}, {1, 3, 2, 3, 5, 0}, {1, 1, 2, 2}, {8, 9, 10, 13, 18, 14, 14, 14, 15, 17, 19}, {21, 19, 18, 17}}
+	expected := []int{2, 0, 3, 2, 8, 2}
+
+	for i, input := range inputs {
+		actual := countElements(input)
+		if actual != expected[i] {
+			fmt.Printf("Expected %d but got %d.\n", expected[i], actual)
+			t.Fail()
+		}
+	}
+}
