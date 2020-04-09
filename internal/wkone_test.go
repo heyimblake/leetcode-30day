@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -13,8 +12,7 @@ func TestSingleNumber(t *testing.T) {
 	for i, input := range inputs {
 		actual := singleNumber(input)
 		if actual != expected[i] {
-			fmt.Printf("Expected %d but got %d.\n", expected[i], actual)
-			t.Fail()
+			t.Fatalf("Expected %d but got %d.\n", expected[i], actual)
 		}
 	}
 }
@@ -26,8 +24,7 @@ func TestIsHappy(t *testing.T) {
 	for i, b := range expected {
 		actual := isHappy(inputs[i])
 		if actual != b {
-			fmt.Printf("Expected %t but got %t.\n", b, actual)
-			t.Fail()
+			t.Fatalf("Expected %t but got %t.\n", b, actual)
 		}
 	}
 }
@@ -38,8 +35,7 @@ func TestIsPower(t *testing.T) {
 
 	for i, b := range expected {
 		if actual[i] != b {
-			fmt.Printf("Expected %t but got %t.\n", b, actual[i])
-			t.Fail()
+			t.Fatalf("Expected %t but got %t.\n", b, actual[i])
 		}
 	}
 }
@@ -51,8 +47,7 @@ func TestMaxSubArray(t *testing.T) {
 	for i, input := range inputs {
 		actual := maxSubArray(input)
 		if actual != expected[i] {
-			fmt.Printf("Expected %d but got %d.\n", expected[i], actual)
-			t.Fail()
+			t.Fatalf("Expected %d but got %d.\n", expected[i], actual)
 		}
 	}
 }
@@ -64,8 +59,7 @@ func TestMoveZeroes(t *testing.T) {
 	for i, input := range inputs {
 		moveZeroes(input)
 		if !reflect.DeepEqual(input, expected[i]) {
-			fmt.Printf("Expected %d but got %d.\n", expected[i], input)
-			t.Fail()
+			t.Fatalf("Expected %d but got %d.\n", expected[i], input)
 		}
 	}
 }
@@ -77,8 +71,7 @@ func TestMaxProfit(t *testing.T) {
 	for i, input := range inputs {
 		actual := maxProfit(input)
 		if actual != expected[i] {
-			fmt.Printf("Expected %d but got %d.\n", expected[i], actual)
-			t.Fail()
+			t.Fatalf("Expected %d but got %d.\n", expected[i], actual)
 		}
 	}
 }
@@ -90,8 +83,7 @@ func TestGroupAnagrams(t *testing.T) {
 	for i, input := range inputs {
 		actual := groupAnagrams(input)
 		if !reflect.DeepEqual(actual, expected[i]) {
-			fmt.Printf("Expected %s but got %s.\n", expected[i], actual)
-			t.Fail()
+			t.Fatalf("Expected %s but got %s.\n", expected[i], actual)
 		}
 	}
 }
@@ -103,8 +95,7 @@ func TestCountElements(t *testing.T) {
 	for i, input := range inputs {
 		actual := countElements(input)
 		if actual != expected[i] {
-			fmt.Printf("Expected %d but got %d.\n", expected[i], actual)
-			t.Fail()
+			t.Fatalf("Expected %d but got %d.\n", expected[i], actual)
 		}
 	}
 }

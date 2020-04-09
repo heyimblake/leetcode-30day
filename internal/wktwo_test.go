@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -13,7 +12,7 @@ func TestMiddleNode(t *testing.T) {
 	for i, input := range inputs {
 		actual := middleNode(input)
 		if !reflect.DeepEqual(actual, expected[i]) {
-			fmt.Printf("Expected %d but got %d.\n", expected[i].Val, actual.Val)
+			t.Fatalf("Expected %d but got %d.\n", expected[i].Val, actual.Val)
 		}
 	}
 }
@@ -25,7 +24,7 @@ func TestBackspaceCompare(t *testing.T) {
 	for i, input := range inputs {
 		actual := backspaceCompare(input[0], input[1])
 		if actual != expected[i] {
-			fmt.Printf("Expected %t but got %t.\n", expected[i], actual)
+			t.Fatalf("Expected %t but got %t.\n", expected[i], actual)
 		}
 	}
 
