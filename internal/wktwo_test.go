@@ -7,15 +7,28 @@ import (
 )
 
 func TestMiddleNode(t *testing.T) {
-	expected := []*ListNode{createLinkedList(1, 1), createLinkedList(1, 5), createLinkedList(1, 6)}
-	actual := []*ListNode{createLinkedList(1, 1), createLinkedList(3, 3), createLinkedList(4, 3)}
+	inputs := []*ListNode{createLinkedList(1, 1), createLinkedList(1, 5), createLinkedList(1, 6)}
+	expected := []*ListNode{createLinkedList(1, 1), createLinkedList(3, 3), createLinkedList(4, 3)}
 
-	for i, b := range expected {
-		if !reflect.DeepEqual(middleNode(b), actual[i]) {
-			fmt.Printf("Expected %d but got %d.\n", b.Val, actual[i].Val)
-			t.Fail()
+	for i, input := range inputs {
+		actual := middleNode(input)
+		if !reflect.DeepEqual(actual, expected[i]) {
+			fmt.Printf("Expected %d but got %d.\n", expected[i].Val, actual.Val)
 		}
 	}
+}
+
+func TestBackspaceCompare(t *testing.T) {
+	inputs := [][]string{{"ab#c", "ad#c"}, {"ab##", "c#d#"}, {"a##c", "#a#c"}, {"a#c", "b"}, {"###", ""}, {"", ""}, {"ab##", "##ab#c##"}, {"a#a", "a"}}
+	expected := []bool{true, true, true, false, true, true, true, true}
+
+	for i, input := range inputs {
+		actual := backspaceCompare(input[0], input[1])
+		if actual != expected[i] {
+			fmt.Printf("Expected %t but got %t.\n", expected[i], actual)
+		}
+	}
+
 }
 
 func createLinkedList(starting, n int) *ListNode {
